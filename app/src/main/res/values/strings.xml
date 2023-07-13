@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RepeatIt</string>
+    <string name="placeholder_search">Поиск</string>
+    <string name="dictionary">Словарь</string>
+    <string name="profile">Профиль</string>
+    <string name="training">Тренировка</string>
 </resources>
