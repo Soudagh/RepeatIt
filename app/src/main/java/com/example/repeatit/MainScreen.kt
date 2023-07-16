@@ -7,7 +7,6 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +22,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.repeatit.ui.navigation.BottomNavGraph
+import com.example.repeatit.ui.navigation.HomeNavGraph
 import com.example.repeatit.ui.theme.RepeatItTheme
 
 
@@ -36,7 +35,7 @@ fun MainScreen() {
         Scaffold(
             bottomBar = { BottomBar(navController = navController)}
         ) {
-            BottomNavGraph(navController = navController)
+            HomeNavGraph(navController = navController)
         }
     }
 }
