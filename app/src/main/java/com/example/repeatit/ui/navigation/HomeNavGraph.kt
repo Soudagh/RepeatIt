@@ -18,9 +18,10 @@ fun HomeNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         route = Graph.HOME,
-        startDestination = BottomBarScreen.Dictionary.route) {
+        startDestination = BottomBarScreen.Dictionary.route
+    ) {
         composable(route = BottomBarScreen.Dictionary.route) {
-            DictScreen()
+            DictScreen(navController = navController)
         }
         composable(route = BottomBarScreen.Training.route) {
             TrainScreen()
@@ -28,13 +29,16 @@ fun HomeNavGraph(navController: NavHostController) {
         composable(route = BottomBarScreen.Profile.route) {
             ProfileScreen()
         }
-        detailsNavGraph(navController = navController)
+        composable(route = Graph.MODIFICATION) {
+            ModificationScreen()
+        }
+        detailsNavGraph()
     }
 }
 
 
 
-fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
+fun NavGraphBuilder.detailsNavGraph() {
     navigation(
         route = Graph.DETAILS,
         startDestination = DetailsScreen.Addition.route

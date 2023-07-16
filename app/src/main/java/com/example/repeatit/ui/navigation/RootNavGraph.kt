@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.repeatit.MainScreen
-import com.example.repeatit.ui.dictionary.DictScreen
 
 
 @Composable
@@ -28,4 +27,5 @@ object Graph {
     const val AUTHENTICATION = "auth_graph"
     const val HOME = "home_graph"
     const val DETAILS = "details_graph"
+    const val MODIFICATION = "modification_graph"
 }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,18 +29,10 @@ import com.example.repeatit.ui.theme.RepeatItTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController = rememberNavController()) {
     RepeatItTheme {
-        val navController = rememberNavController()
         Scaffold(
-            floatingActionButton = {
-                                   FloatingActionButton(onClick = {
-
-                                   }) {
-
-                                   }
-            },
-            bottomBar = { BottomBar(navController = navController)}
+            bottomBar = { BottomBar(navController = navController) },
         ) {
             HomeNavGraph(navController = navController)
         }
@@ -57,7 +48,7 @@ fun BottomBar(navController: NavHostController, modifier: Modifier = Modifier) {
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    BottomNavigation (
+    BottomNavigation(
         modifier = modifier,
         backgroundColor = MaterialTheme.colorScheme.background,
     ) {
