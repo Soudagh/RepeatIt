@@ -25,8 +25,10 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.repeatit.R
@@ -49,7 +51,12 @@ fun DictScreen() {
         Theme(1, "Даты", "assafasf"),
         Theme(1, "Даты", "assafasf"),
         Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf")
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
     )
 
     Scaffold {
@@ -84,18 +91,27 @@ fun ShowThemes(
     modifier: Modifier = Modifier,
     themes: Array<Theme> = arrayOf()) {
 
-    LazyColumn(modifier = modifier) {
-        items(items = themes) { theme ->
-            ThemeCard(
-                theme = theme,
-                modifier = modifier
-                    .padding(
-                        horizontal = 12.dp,
-                        vertical = 5.dp
-                    )
-            )
+    if (themes.isEmpty()) {
+        Text(
+            text = stringResource(R.string.no_themes),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.titleLarge
+        )
+    } else {
+        LazyColumn(modifier = modifier) {
+            items(items = themes) { theme ->
+                ThemeCard(
+                    theme = theme,
+                    modifier = modifier
+                        .padding(
+                            horizontal = 12.dp,
+                            vertical = 5.dp
+                        )
+                )
+            }
         }
     }
+
 }
 
 
@@ -157,7 +173,9 @@ fun DictTopAppBar(
 
 @Composable
 fun ListWithSearch(themes: Array<Theme>) {
-    Column{
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
         SearchBar(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
         ShowThemes(modifier = Modifier, themes = themes)
     }

@@ -103,9 +103,6 @@ fun ThemeInputForm(
             value = themeDetails.name,
             onValueChange = {onValueChange(themeDetails.copy(name = it))},
             label = { Text(stringResource(id = R.string.theme_name_req)) },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer
-            ),
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -114,9 +111,6 @@ fun ThemeInputForm(
             value = themeDetails.description,
             onValueChange = { onValueChange(themeDetails.copy(description = it)) },
             label = { Text(stringResource(id = R.string.theme_desc_req)) },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer
-            ),
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -125,7 +119,8 @@ fun ThemeInputForm(
         if (enabled) {
             Text(
                 text = stringResource(id = R.string.required_fields),
-                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
+                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium)),
+                color = MaterialTheme.colorScheme.error
             )
         }
     }
