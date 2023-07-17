@@ -4,4 +4,11 @@
     <string name="dictionary">Словарь</string>
     <string name="profile">Профиль</string>
     <string name="training">Тренировка</string>
+    <string name="theme_name_req">Название темы</string>
+    <string name="theme_desc_req">Описание темы</string>
+    <string name="required_fields">Обязательные поля</string>
+    <string name="save_action">Сохранить</string>
+    <string name="back_button">Назад</string>
+    <string name="theme_entry_title">Добавление</string>
+    <string name="theme_update_title">Изменение</string>
 </resources>

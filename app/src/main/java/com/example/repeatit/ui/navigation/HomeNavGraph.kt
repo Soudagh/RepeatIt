@@ -1,14 +1,12 @@
 package com.example.repeatit.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.example.repeatit.BottomBarScreen
 import com.example.repeatit.ui.dictionary.DictScreen
-import com.example.repeatit.ui.dictionary.ModificationScreen
+import com.example.repeatit.ui.dictionary.ThemeEntryScreen
 import com.example.repeatit.ui.profile.ProfileScreen
 import com.example.repeatit.ui.trainings.TrainScreen
 
@@ -21,7 +19,7 @@ fun HomeNavGraph(navController: NavHostController) {
         startDestination = BottomBarScreen.Dictionary.route
     ) {
         composable(route = BottomBarScreen.Dictionary.route) {
-            DictScreen(navController = navController)
+            DictScreen()
         }
         composable(route = BottomBarScreen.Training.route) {
             TrainScreen()
@@ -30,27 +28,36 @@ fun HomeNavGraph(navController: NavHostController) {
             ProfileScreen()
         }
         composable(route = Graph.MODIFICATION) {
-            ModificationScreen()
+            ThemeEntryScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
         }
-        detailsNavGraph()
+//        detailsNavGraph()
     }
 }
 
 
 
-fun NavGraphBuilder.detailsNavGraph() {
-    navigation(
-        route = Graph.DETAILS,
-        startDestination = DetailsScreen.Addition.route
-    ) {
-        composable(route = DetailsScreen.Addition.route) {
-            ModificationScreen()
-        }
-        composable(route = DetailsScreen.Update.route) {
-            ModificationScreen()
-        }
-    }
-}
+//fun NavGraphBuilder.detailsNavGraph() {
+//    navigation(
+//        route = Graph.DETAILS,
+//        startDestination = DetailsScreen.Addition.route
+//    ) {
+//        composable(route = DetailsScreen.Addition.route) {
+//            ThemeEntryScreen(
+//                navigateBack = { navController.popBackStack() },
+//                onNavigateUp = { navController.navigateUp() }
+//            )
+//        }
+//        composable(route = DetailsScreen.Update.route) {
+//            ThemeEntryScreen(
+//                navigateBack = { navController.popBackStack() },
+//                onNavigateUp = { navController.navigateUp() }
+//            )
+//        }
+//    }
+//}
 
 
 sealed class DetailsScreen(val route: String) {

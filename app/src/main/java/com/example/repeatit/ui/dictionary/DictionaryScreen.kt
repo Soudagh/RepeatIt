@@ -10,68 +10,49 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.repeatit.BottomBar
 import com.example.repeatit.R
-import com.example.repeatit.db.Theme
-import com.example.repeatit.ui.navigation.Graph
+import com.example.repeatit.data.Theme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DictScreen(navController: NavHostController = rememberNavController()) {
+fun DictScreen() {
     val themes = arrayOf(
-        Theme(1, "Даты"),
-        Theme(2, "Английский"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(3, "Формулы"),
-        Theme(4, "Другое"))
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate(Graph.MODIFICATION) },
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
-            }
-        },
-        bottomBar = { BottomBar(navController) }
-    ) {
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf"),
+        Theme(1, "Даты", "assafasf")
+    )
+
+    Scaffold {
         ListWithSearch(themes = themes)
     }
 }
@@ -91,7 +72,7 @@ fun ThemeCard(theme: Theme, modifier: Modifier = Modifier) {
 
         ) {
         Text(
-            text = theme.themeName,
+            text = theme.name,
             modifier = modifier.padding(vertical = 5.dp, horizontal = 5.dp)
         )
     }
@@ -144,6 +125,33 @@ fun SearchBar(modifier: Modifier = Modifier) {
             containerColor = MaterialTheme.colorScheme.surface
         ),
         placeholder = { Text(stringResource(R.string.placeholder_search)) })
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DictTopAppBar(
+    title: String,
+    canNavigateBack: Boolean,
+    modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
+    navigateUp: () -> Unit = {}
+) {
+    CenterAlignedTopAppBar(
+        title = { Text(title) },
+        modifier = modifier,
+        scrollBehavior = scrollBehavior,
+        navigationIcon = {
+            if (canNavigateBack) {
+                IconButton(onClick = navigateUp) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back_button)
+                    )
+                }
+            }
+        }
+    )
 }
 
 
