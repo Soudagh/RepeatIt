@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -26,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.repeatit.R
 import com.example.repeatit.ui.AppViewModelProvider
 import com.example.repeatit.ui.navigation.ModificationScreen
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,6 +38,8 @@ fun ThemeEntryScreen(
     canNavigateBack: Boolean = true,
     viewModel: ThemeEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
+
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -49,12 +53,19 @@ fun ThemeEntryScreen(
         ThemeEntryBody(
             themeUiState = viewModel.themeUiState,
             onThemeValueChange = viewModel::updateUiState,
-            onSaveClick = { /*TODO*/ },
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.saveTheme()
+                    navigateBack()
+
+                }
+            },
             modifier = Modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
-                .fillMaxWidth())
-        
+                .fillMaxWidth()
+        )
+
     }
 }
 

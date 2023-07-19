@@ -1,7 +1,6 @@
 package com.example.repeatit
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -39,7 +38,7 @@ import com.example.repeatit.ui.theme.RepeatItTheme
 @Composable
 fun MainScreen(navController: NavHostController = rememberNavController()) {
     RepeatItTheme {
-        val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+        rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         val homeRoutesList = listOf(

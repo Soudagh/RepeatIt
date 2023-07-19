@@ -10,6 +10,6 @@ interface AppContainer {
 class AppDataContainer(private val context: Context) : AppContainer {
 
     override val themesRepository: ThemesRepository by lazy {
-        OfflineThemesRepository()
+        OfflineThemesRepository(AppDatabase.getDatabase(context = context).themeDao())
     }
 }

@@ -5,8 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.repeatit.data.Theme
+import com.example.repeatit.data.ThemesRepository
 
-class ThemeEntryViewModel : ViewModel() {
+class ThemeEntryViewModel(private val themesRepository: ThemesRepository) : ViewModel() {
 
     var themeUiState by mutableStateOf(ThemeUiState())
         private set
@@ -19,6 +20,12 @@ class ThemeEntryViewModel : ViewModel() {
     private fun validateInput(uiState: ThemeDetails = themeUiState.themeDetails): Boolean {
         return with(uiState) {
             name.isNotBlank() && description.isNotBlank()
+        }
+    }
+
+    suspend fun saveTheme() {
+        if (validateInput()) {
+            themesRepository.insertTheme(themeUiState.themeDetails.toTheme())
         }
     }
 
@@ -54,3 +61,5 @@ fun Theme.toThemeDetails(): ThemeDetails = ThemeDetails(
     name = name,
     description = description
 )
+
+
