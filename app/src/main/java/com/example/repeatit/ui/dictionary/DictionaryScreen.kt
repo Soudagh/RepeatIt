@@ -25,6 +25,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -32,36 +34,22 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.repeatit.R
 import com.example.repeatit.data.Theme
+import com.example.repeatit.ui.AppViewModelProvider
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DictScreen() {
-    val themes = arrayOf(
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-        Theme(1, "Даты", "assafasf"),
-    )
+fun DictScreen(
+    viewModel: DictViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
+
+    val dictUiState by viewModel.dictUiState.collectAsState()
 
     Scaffold {
-        ListWithSearch(themes = themes)
+        ListWithSearch(themes = dictUiState.themeList)
     }
 }
 
@@ -98,7 +86,7 @@ fun ThemeCard(theme: Theme, modifier: Modifier = Modifier) {
 @Composable
 fun ShowThemes(
     modifier: Modifier = Modifier,
-    themes: Array<Theme> = arrayOf()) {
+    themes: List<Theme> = listOf()) {
 
     if (themes.isEmpty()) {
         Text(
@@ -108,7 +96,7 @@ fun ShowThemes(
         )
     } else {
         LazyColumn(modifier = modifier) {
-            items(items = themes) { theme ->
+            items(items = themes, key = { it.id }) { theme ->
                 ThemeCard(
                     theme = theme,
                     modifier = modifier
@@ -181,7 +169,7 @@ fun DictTopAppBar(
 
 
 @Composable
-fun ListWithSearch(themes: Array<Theme>) {
+fun ListWithSearch(themes: List<Theme>) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ){
