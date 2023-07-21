@@ -1,5 +1,6 @@
-package com.example.repeatit.data
+package com.example.repeatit.data.repositories
 
+import com.example.repeatit.data.entities.Theme
 import kotlinx.coroutines.flow.Flow
 
 interface ThemesRepository {

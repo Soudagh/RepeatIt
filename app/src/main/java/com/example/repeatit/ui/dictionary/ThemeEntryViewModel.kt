@@ -4,8 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.repeatit.data.Theme
-import com.example.repeatit.data.ThemesRepository
+import com.example.repeatit.data.entities.Theme
+import com.example.repeatit.data.repositories.ThemesRepository
 
 class ThemeEntryViewModel(private val themesRepository: ThemesRepository) : ViewModel() {
 

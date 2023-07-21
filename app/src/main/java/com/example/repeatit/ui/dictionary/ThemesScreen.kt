@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.repeatit.R
-import com.example.repeatit.data.Theme
+import com.example.repeatit.data.entities.Theme
 import com.example.repeatit.ui.AppViewModelProvider
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -64,27 +64,21 @@ fun ThemeCard(theme: Theme, modifier: Modifier = Modifier) {
             .wrapContentHeight(),
         shape = RoundedCornerShape(size = 4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-
-
         ) {
-        Column {
+        Column(modifier = modifier.padding(vertical = 5.dp, horizontal = 5.dp)) {
             Text(
                 text = theme.name,
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = Bold,
-                modifier = modifier.padding(vertical = 5.dp, horizontal = 5.dp)
+                fontWeight = Bold
             )
-            Text(
-                text = theme.description,
-                modifier = modifier.padding(vertical = 5.dp, horizontal = 5.dp)
-            )
+            Text(text = theme.description)
         }
     }
 }
 
 
 @Composable
-fun ShowThemes(
+fun ShowCards(
     modifier: Modifier = Modifier,
     themes: List<Theme> = listOf()) {
 
@@ -174,6 +168,6 @@ fun ListWithSearch(themes: List<Theme>) {
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         SearchBar(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
-        ShowThemes(modifier = Modifier, themes = themes)
+        ShowCards(modifier = Modifier, themes = themes)
     }
 }

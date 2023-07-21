@@ -1,5 +1,8 @@
-package com.example.repeatit.data
+package com.example.repeatit.data.repositories
 
+import com.example.repeatit.data.dao.ThemeDao
+import com.example.repeatit.data.entities.Theme
+import com.example.repeatit.data.repositories.ThemesRepository
 import kotlinx.coroutines.flow.Flow
 
 class OfflineThemesRepository(private val themeDao: ThemeDao) : ThemesRepository {

@@ -2,8 +2,8 @@ package com.example.repeatit.ui.dictionary
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.repeatit.data.Theme
-import com.example.repeatit.data.ThemesRepository
+import com.example.repeatit.data.entities.Theme
+import com.example.repeatit.data.repositories.ThemesRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
