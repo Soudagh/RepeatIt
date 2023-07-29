@@ -1,6 +1,8 @@
 package com.example.repeatit.ui.dictionary
 
 import android.annotation.SuppressLint
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -32,36 +34,47 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.repeatit.R
+import com.example.repeatit.data.entities.Item
 import com.example.repeatit.data.entities.Theme
 import com.example.repeatit.ui.AppViewModelProvider
+import com.example.repeatit.ui.navigation.Graph
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DictScreen(
-    viewModel: DictViewModel = viewModel(factory = AppViewModelProvider.Factory)
+fun ThemesScreen(
+    viewModel: DictViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navController: NavHostController = rememberNavController()
 ) {
 
     val dictUiState by viewModel.dictUiState.collectAsState()
-
     Scaffold {
-        ListWithSearch(themes = dictUiState.themeList)
+        ListWithSearch(list = dictUiState.themeList, navController)
     }
 }
 
 
 @Composable
-fun ThemeCard(theme: Theme, modifier: Modifier = Modifier) {
+fun ThemeCard(
+    theme: Theme,
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController = rememberNavController()
+) {
     Card(colors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surface
     ),
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .clickable {
+                Log.d("navHostController", navHostController.currentDestination.toString())
+                navHostController.navigate(Graph.ITEMS)
+            },
         shape = RoundedCornerShape(size = 4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         ) {
@@ -74,15 +87,18 @@ fun ThemeCard(theme: Theme, modifier: Modifier = Modifier) {
             Text(text = theme.description)
         }
     }
+
 }
 
 
 @Composable
 fun ShowCards(
     modifier: Modifier = Modifier,
-    themes: List<Theme> = listOf()) {
+    list: List<Any> = listOf(),
+    navHostController: NavHostController,
+) {
 
-    if (themes.isEmpty()) {
+    if (list.isEmpty()) {
         Text(
             text = stringResource(R.string.no_themes),
             textAlign = TextAlign.Center,
@@ -90,26 +106,30 @@ fun ShowCards(
         )
     } else {
         LazyColumn(modifier = modifier) {
-            items(items = themes, key = { it.id }) { theme ->
-                ThemeCard(
-                    theme = theme,
-                    modifier = modifier
-                        .padding(
-                            horizontal = 12.dp,
-                            vertical = 5.dp
-                        )
-                )
+            items(items = list) { item ->
+                when(item) {
+                    is Item -> ItemCard(
+                        item = item,
+                        modifier = modifier
+                            .padding(
+                                horizontal = 12.dp,
+                                vertical = 5.dp
+                            )
+                    )
+                    is Theme -> ThemeCard(
+                        theme = item,
+                        modifier = modifier
+                            .padding(
+                                horizontal = 12.dp,
+                                vertical = 5.dp
+                            ),
+                        navHostController = navHostController
+                    )
+                }
+
             }
         }
     }
-
-}
-
-
-@Preview
-@Composable
-fun DictScreenPreview() {
-    DictScreen()
 }
 
 
@@ -163,11 +183,11 @@ fun DictTopAppBar(
 
 
 @Composable
-fun ListWithSearch(themes: List<Theme>) {
+fun ListWithSearch(list: List<Any>, navHostController: NavHostController) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         SearchBar(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
-        ShowCards(modifier = Modifier, themes = themes)
+        ShowCards(modifier = Modifier, list = list, navHostController)
     }
 }

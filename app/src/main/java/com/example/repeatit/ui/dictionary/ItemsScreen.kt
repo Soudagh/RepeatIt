@@ -12,12 +12,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.repeatit.data.entities.Item
 
 
 @Composable
-fun ItemsScreen() {
-
+fun ItemsScreen(
+    navHostController: NavHostController = rememberNavController()
+) {
+    val items: List<Item> = listOf()
+    ListWithSearch(list = items, navHostController = navHostController)
 }
 
 
