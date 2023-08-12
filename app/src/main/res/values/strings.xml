@@ -12,4 +12,7 @@
     <string name="theme_entry_title">Добавление</string>
     <string name="theme_update_title">Изменение</string>
     <string name="no_themes">Ой!\nВ словаре отсутствуют темы.\nНажмите + для добавления.</string>
+    <string name="no_items">Ой!\nВ теме отсутствуют слова. \nНажмите + для добавления.</string>
+    <string name="items_entry_title">Объекты</string>
+    <string name="item_details_title">Подробности</string>
 </resources>

@@ -26,4 +26,7 @@ interface ItemDao {
 
     @Query("SELECT * from items")
     fun getAllItems(): Flow<List<Item>>
+
+    @Query("SELECT * from items WHERE themeId = :id")
+    fun getItemsById(id: Int?): Flow<List<Item>>
 }

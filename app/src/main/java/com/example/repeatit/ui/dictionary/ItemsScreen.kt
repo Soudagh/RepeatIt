@@ -10,19 +10,30 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.example.repeatit.R
 import com.example.repeatit.data.entities.Item
+import com.example.repeatit.ui.AppViewModelProvider
 
 
 @Composable
 fun ItemsScreen(
-    navHostController: NavHostController = rememberNavController()
+    viewModel: ItemsViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navHostController: NavHostController
 ) {
-    val items: List<Item> = listOf()
-    ListWithSearch(list = items, navHostController = navHostController)
+    val itemUiState by viewModel.itemsUiState.collectAsState()
+    ListWithSearch(
+        list = itemUiState.itemsList,
+        navHostController = navHostController,
+        stringResource(R.string.no_items),
+        onItemClick = {}
+    )
 }
 
 

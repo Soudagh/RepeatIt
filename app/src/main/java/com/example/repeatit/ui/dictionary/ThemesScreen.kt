@@ -49,12 +49,16 @@ import com.example.repeatit.ui.navigation.Graph
 @Composable
 fun ThemesScreen(
     viewModel: DictViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    navigateToItem: (Int) -> Unit,
 ) {
-
     val dictUiState by viewModel.dictUiState.collectAsState()
     Scaffold {
-        ListWithSearch(list = dictUiState.themeList, navController)
+        ListWithSearch(
+            list = dictUiState.themeList,
+            onItemClick = navigateToItem,
+            navHostController = navController,
+            emptyString = stringResource(id = R.string.no_themes))
     }
 }
 
@@ -63,7 +67,8 @@ fun ThemesScreen(
 fun ThemeCard(
     theme: Theme,
     modifier: Modifier = Modifier,
-    navHostController: NavHostController = rememberNavController()
+    onItemClick: (Int) -> Unit,
+    navHostController: NavHostController
 ) {
     Card(colors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surface
@@ -72,8 +77,7 @@ fun ThemeCard(
             .fillMaxWidth()
             .wrapContentHeight()
             .clickable {
-                Log.d("navHostController", navHostController.currentDestination.toString())
-                navHostController.navigate(Graph.ITEMS)
+                onItemClick(theme.id)
             },
         shape = RoundedCornerShape(size = 4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
@@ -96,11 +100,13 @@ fun ShowCards(
     modifier: Modifier = Modifier,
     list: List<Any> = listOf(),
     navHostController: NavHostController,
+    onItemClick: (Int) -> Unit,
+    emptyString: String
 ) {
 
     if (list.isEmpty()) {
         Text(
-            text = stringResource(R.string.no_themes),
+            text = emptyString,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge
         )
@@ -123,6 +129,7 @@ fun ShowCards(
                                 horizontal = 12.dp,
                                 vertical = 5.dp
                             ),
+                        onItemClick = onItemClick,
                         navHostController = navHostController
                     )
                 }
@@ -183,11 +190,22 @@ fun DictTopAppBar(
 
 
 @Composable
-fun ListWithSearch(list: List<Any>, navHostController: NavHostController) {
+fun ListWithSearch(
+    list: List<Any>,
+    navHostController: NavHostController,
+    emptyString: String,
+    onItemClick: (Int) -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         SearchBar(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
-        ShowCards(modifier = Modifier, list = list, navHostController)
+        ShowCards(
+            modifier = Modifier,
+            list = list,
+            navHostController = navHostController,
+            onItemClick = onItemClick,
+            emptyString = emptyString
+        )
     }
 }

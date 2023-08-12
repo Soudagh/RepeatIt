@@ -11,7 +11,7 @@ import com.example.repeatit.data.entities.Item
 import com.example.repeatit.data.entities.Theme
 import com.example.repeatit.data.entities.User
 
-@Database(entities = [Theme::class, Item::class, User::class], version = 2, exportSchema = false)
+@Database(entities = [Theme::class, Item::class, User::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun themeDao() : ThemeDao

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.repeatit.RepeatItApplication
 import com.example.repeatit.ui.dictionary.DictViewModel
+import com.example.repeatit.ui.dictionary.ItemsViewModel
 import com.example.repeatit.ui.dictionary.ThemeEntryScreen
 import com.example.repeatit.ui.dictionary.ThemeEntryViewModel
 
@@ -19,6 +20,13 @@ object AppViewModelProvider {
 
         initializer {
             DictViewModel(repeatItApp().container.themesRepository)
+        }
+
+        initializer {
+            ItemsViewModel(
+                repeatItApp().container.itemsRepository,
+                this.createSavedStateHandle()
+            )
         }
     }
 }

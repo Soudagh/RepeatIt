@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    val themeId: Int = 0,
     val firstValue: String,
     val secondValue: String,
     val description: String

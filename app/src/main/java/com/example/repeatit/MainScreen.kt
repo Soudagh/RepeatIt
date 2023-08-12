@@ -1,6 +1,7 @@
 package com.example.repeatit
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -46,6 +47,7 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
             BottomBarScreen.Profile.route,
             BottomBarScreen.Training.route
         )
+        Log.d("currentRoute", currentRoute.toString())
         Scaffold(
             bottomBar = {
                 if (currentRoute in homeRoutesList) {

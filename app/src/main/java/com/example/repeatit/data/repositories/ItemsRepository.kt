@@ -7,6 +7,8 @@ interface ItemsRepository {
 
     fun getAllItemsStream(): Flow<List<Item>>
 
+    fun getItemsById(id: Int?): Flow<List<Item>>
+
     fun getItemStream(id: Int): Flow<Item?>
 
     suspend fun insertItem(item: Item)

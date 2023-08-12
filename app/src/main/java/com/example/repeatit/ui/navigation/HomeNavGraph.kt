@@ -1,10 +1,14 @@
 package com.example.repeatit.ui.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.repeatit.BottomBarScreen
+import com.example.repeatit.R
 import com.example.repeatit.ui.dictionary.ItemsScreen
 import com.example.repeatit.ui.dictionary.ThemeEntryScreen
 import com.example.repeatit.ui.dictionary.ThemesScreen
@@ -20,7 +24,13 @@ fun HomeNavGraph(navController: NavHostController) {
         startDestination = BottomBarScreen.Dictionary.route
     ) {
         composable(route = BottomBarScreen.Dictionary.route) {
-            ThemesScreen(navController = navController)
+            ThemesScreen(
+                navController = navController,
+                navigateToItem = {
+                    navController.navigate(route = Graph.ITEMS + "/${id}")
+                }
+            )
+
         }
         composable(route = BottomBarScreen.Training.route) {
             TrainScreen()
@@ -34,8 +44,18 @@ fun HomeNavGraph(navController: NavHostController) {
                 onNavigateUp = { navController.navigateUp() }
             )
         }
-        composable(route = Graph.ITEMS) {
-            ItemsScreen()
+        composable(
+            route = Graph.ITEMS + "/${id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                    defaultValue = 1
+                    nullable = false
+                }
+            )
+        ) {
+            ItemsScreen(navHostController = navController)
         }
     }
 }
+
